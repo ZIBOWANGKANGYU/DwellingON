@@ -52,9 +52,9 @@ subdivision_detailsServer <- function(id, subdivision, data_details){
       data_details %>%
         filter(DGUID %in% subdivision()) %>%
         select(
+          `Subdivision name` = GEO_NAME,
           `2021 Population` = `Population..2021`,
           `2016-21 Population Percentage Growth` = `Population.percentage.change..2016.to.2021`,
-          `Subdivision name` = GEO_NAME,
           `Average age` = Average.age.of.the.population,
           `Average household size` = Average.household.size,
           `Average income` = `Average.total.income.in.2020.among.recipients....`
@@ -63,7 +63,11 @@ subdivision_detailsServer <- function(id, subdivision, data_details){
     
     # Render the portrait able with the filtered data
     output$table_portrait <- renderDT({
-      datatable(filtered_data_portrait())
+      datatable(filtered_data_portrait(), options = list(
+        initComplete = JS(
+          change_font_size(11)
+        )
+      )) 
     })
     
     filtered_data_mother_tongue <- reactive({
@@ -77,7 +81,12 @@ subdivision_detailsServer <- function(id, subdivision, data_details){
     
     # Render the mother tongue table with the filtered data
     output$table_mother_tongue <- renderDT({
-      datatable(filtered_data_mother_tongue())
+      datatable(filtered_data_mother_tongue(), options = list(
+        initComplete = JS(
+          change_font_size(11)
+        )
+      )) %>%
+        DT_percentage_format()
     })
     
     filtered_data_education <- reactive({
@@ -89,7 +98,12 @@ subdivision_detailsServer <- function(id, subdivision, data_details){
     })
     
     output$table_education <- renderDT({
-      datatable(filtered_data_education())
+      datatable(filtered_data_education(), options = list(
+        initComplete = JS(
+          change_font_size(11)
+        )
+      )) %>%
+        DT_percentage_format()
     })
     
     filtered_data_immigration <- reactive({
@@ -101,7 +115,12 @@ subdivision_detailsServer <- function(id, subdivision, data_details){
     })
     
     output$table_immigiration <- renderDT({
-      datatable(filtered_data_immigration())
+      datatable(filtered_data_immigration(), options = list(
+        initComplete = JS(
+          change_font_size(11)
+        )
+      )) %>%
+        DT_percentage_format()
     })
   })
 }

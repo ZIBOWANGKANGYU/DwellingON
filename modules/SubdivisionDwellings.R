@@ -49,7 +49,13 @@ subdivision_dwellingsServer <- function(id, shown_subdivisions) {
           `Apartment (5 or more storeys)` = Apartment.in.a.building.that.has.five.or.more.storeys
         )
       
-      datatable(data, selection = list(mode = "single", selected = 1, target = "row"))
+      data %>%
+        datatable(selection = list(mode = "single", selected = 1, target = "row"), options = list(
+          initComplete = JS(
+            change_font_size(11)
+          )
+        )) %>%
+        DT_percentage_format(percentage_cols = colnames(data)[!colnames(data) %in% c("Subdivision", "Total private dwellings")])
     })
     
     return(selected_subdivision)

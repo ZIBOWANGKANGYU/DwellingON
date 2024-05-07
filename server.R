@@ -5,7 +5,7 @@ function(input, output, session) {
   # Read and prepare data
   data <- read.csv("data/data_cleaned.csv")
   data_details <- read.csv("data/data_details_wide.csv")
-  
+
   subdivisions <- data %>%
     # Only pick the census subdivisions with population greater than 50,000
     filter(Population..2021 > 50000) %>%
