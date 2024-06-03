@@ -2,6 +2,9 @@
 # It should use the testthat package to run the tests. 
 # Refer to this website: https://testthat.r-lib.org/ for more information on how to write tests.
 
+# Load necessary packages
+library(DT)
+library(dplyr)
 # Now, write tests for the transform_to_proportions function.
 
 test_that("transform_to_proportions function works correctly", {
@@ -60,9 +63,10 @@ test_that("DT_percentage_format function works correctly", {
       col1 = c(0.1, 0.2, 0.3),
       col2 = c(0.4, 0.5, 0.6),
       non_numeric = c("a", "b", "c")
-    ) %>%
-      formatPercentage(c("col1", "col2"), digits = 0)
-  )
+    ) 
+  ) %>%
+    formatPercentage(c("col1", "col2"), digits = 0)
+  
   actual_output <- DT_percentage_format(test_DT)
   expect_equal(actual_output$x$data, expected_output$x$data)
   
@@ -72,9 +76,10 @@ test_that("DT_percentage_format function works correctly", {
       col1 = c(0.1, 0.2, 0.3),
       col2 = c(0.4, 0.5, 0.6),
       non_numeric = c("a", "b", "c")
-    ) %>%
-      formatPercentage("col1", digits = 2)
-  )
+    ) 
+  ) %>%
+    formatPercentage("col1", digits = 2)
+  
   actual_output <- DT_percentage_format(test_DT, percentage_cols = "col1", decimal_places = 2)
   expect_equal(actual_output$x$data, expected_output$x$data)
 })
